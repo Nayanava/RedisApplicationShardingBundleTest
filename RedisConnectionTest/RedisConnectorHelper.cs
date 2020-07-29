@@ -22,10 +22,11 @@ namespace RedisConnectionTest
         private RedisConnectionsManager initRedisConnectionManager() {
             IList<RedisConnectionConfig> connectionConfigs = new List<RedisConnectionConfig>
             {
-                new RedisConnectionConfig("splicluster1.redis.cache.windows.net:6380,password=RrRDwXnjXqLeGTMkMNDfHyFLa1UPXSMjbOW7amRSnZQ=,ssl=True,abortConnect=False", 1),
-                new RedisConnectionConfig("splitcluster2.redis.cache.windows.net:6380,password=DZEMUVwxoSdqL0xFhlot3jq+43v30QOERVnT7mXePao=,ssl=True,abortConnect=False", 1)
+                new RedisConnectionConfig("splicluster1.redis.cache.windows.net:6380,password=RrRDwXnjXqLeGTMkMNDfHyFLa1UPXSMjbOW7amRSnZQ=,connectTimeout=30000,ssl=True,abortConnect=False", 1),
+                new RedisConnectionConfig("splitcluster2.redis.cache.windows.net:6380,password=DZEMUVwxoSdqL0xFhlot3jq+43v30QOERVnT7mXePao=,connectTimeout=30000,ssl=True,abortConnect=False", 1),
+                new RedisConnectionConfig("splitcluster3.redis.cache.windows.net:6380,password=1Y32jYQzPtgz1dTNAZkCWIPkEDEUr6wdEpCQ9OfSzCs=,ssl=True,abortConnect=False", 1)
             };
-            RedisConnectionsManager rcm = new RedisConnectionsManager(32, 1, 2, 1, connectionConfigs.ToArray(), CancellationTokenSource.Token);
+            RedisConnectionsManager rcm = new RedisConnectionsManager(32, 3, 2, 1, connectionConfigs.ToArray(), CancellationTokenSource.Token);
             return rcm;
         }
 

@@ -17,19 +17,27 @@ namespace RedisConnectionTest
             CancellationTokenSource cts = new CancellationTokenSource();
             RedisConnectorHelper rch = new RedisConnectorHelper(cts);
 
-            Console.WriteLine("Writing to redis");
-            program.SaveBigData(rch);
-            Console.WriteLine("Reading from cache");
-            program.ReadData(rch);
-            Console.ReadLine();
+            Thread.Sleep(5000);
+
+            while (true)
+            {
+                Console.WriteLine("Writing to redis");
+                program.SaveBigData(rch);
+                Console.WriteLine("Reading from cache");
+                program.ReadData(rch);
+                Console.WriteLine("To continue press y");
+                var input = Console.ReadLine();
+                if(!input.Equals("y"))
+                {
+                    break;
+                }
+            }
         }
 
-        /// <summary>
-        /// Leemos los 10,000 datos guardados
-        /// </summary>
+        
         public void ReadData(RedisConnectorHelper cache)
         {
-            var devicesCount = 2;
+            var devicesCount = 20;
             for (int i = 1; i <= devicesCount; i++)
             {
                 string key = $"Device_Status:{i}";
@@ -40,13 +48,9 @@ namespace RedisConnectionTest
         }
 
 
-        /// <summary>
-        /// Guarda valores random en 10000 dispositivos Dummy
-        /// </summary>
-        /// <returns></returns>
         public void SaveBigData(RedisConnectorHelper cache)
         {
-            var devicesCount = 2;
+            var devicesCount = 20;
             var rnd = new Random();
 
             for (int i = 1; i <= devicesCount; i++)
